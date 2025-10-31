@@ -62,7 +62,7 @@ input_data = pd.DataFrame([[road_type, num_lanes, curvature, speed_limit,
 
 if st.button("Submit Prediction"):
     try:
-        ai_pred = int(model.predict(input_data)[0])
+        ai_pred = model.predict(input_data)
         st.session_state.rounds += 1
 
         st.write(f"🤖 **AI Prediction:** {ai_pred}")
@@ -80,4 +80,5 @@ if st.button("Submit Prediction"):
 
     except Exception as e:
         st.error(f"Error during prediction: {e}")
+
 
