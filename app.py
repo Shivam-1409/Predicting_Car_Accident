@@ -44,7 +44,7 @@ school_season = st.selectbox("Is it School Season?", [True, False])
 num_reported_accidents = st.number_input("Number of Reported Accidents", min_value=0, value=1)
 
 # --- User prediction ---
-st.subheader("🎯 Your Prediction")
+st.subheader("Your Prediction")
 user_pred = st.slider("Predict accident risk (0 = No Risk, 1 = High Risk)", 0, 1, 0)
 
 # --- AI prediction ---
@@ -62,11 +62,14 @@ input_data = pd.DataFrame([[road_type, num_lanes, curvature, speed_limit,
 
 if st.button("Submit Prediction"):
     try:
-        ai_pred = model.predict(input_data)
+        if model.predict(input_data)>0.5:
+           ai_pred = 1
+        else:
+           ai_pred=0
         st.session_state.rounds += 1
 
-        st.write(f"🤖 **AI Prediction:** {ai_pred}")
-        st.write(f"🧍‍♂️ **Your Prediction:** {user_pred}")
+        st.write(f"**AI Prediction:** {ai_pred}")
+        st.write(f"**Your Prediction:** {user_pred}")
 
         # Check if user prediction matches
         if ai_pred == user_pred:
@@ -80,5 +83,6 @@ if st.button("Submit Prediction"):
 
     except Exception as e:
         st.error(f"Error during prediction: {e}")
+
 
 
