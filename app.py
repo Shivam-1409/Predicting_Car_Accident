@@ -45,7 +45,7 @@ num_reported_accidents = st.number_input("Number of Reported Accidents", min_val
 
 # --- User prediction ---
 st.subheader("Your Prediction")
-user_pred = st.slider("Predict accident risk (0 = No Risk, 1 = High Risk)", 0, 1, 0)
+user_pred = st.slider("Predict accident risk (0 = No Risk, 1 = High Risk)", 0.0, 1.0, 0.0)
 
 # --- AI prediction ---
 columns = [
@@ -62,12 +62,7 @@ input_data = pd.DataFrame([[road_type, num_lanes, curvature, speed_limit,
 
 if st.button("Submit Prediction"):
     try:
-        if model.predict(input_data)>0.5:
-           ai_pred = 1
-        else:
-           ai_pred=0
-        st.session_state.rounds += 1
-
+        ai_pred = model.predict(input_data)
         st.write(f"**AI Prediction:** {ai_pred}")
         st.write(f"**Your Prediction:** {user_pred}")
 
