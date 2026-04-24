@@ -62,7 +62,7 @@ input_data = pd.DataFrame([[road_type, num_lanes, curvature, speed_limit,
 
 if st.button("Submit Prediction"):
     try:
-        ai_pred = model.predict(input_data)
+        ai_pred = round(model.predict(input_data),2)
         st.write(f"**AI Prediction:** {ai_pred}")
         st.write(f"**Your Prediction:** {user_pred}")
 
