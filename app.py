@@ -63,11 +63,11 @@ input_data = pd.DataFrame([[road_type, num_lanes, curvature, speed_limit,
 if st.button("Submit Prediction"):
     try:
         ai_pred = np.round(model.predict(input_data),2)
-        st.write(f"**AI Prediction:** {ai_pred}")
+        st.write(f"**AI Prediction:** {ai_pred[0]}")
         st.write(f"**Your Prediction:** {user_pred}")
 
         # Check if user prediction matches
-        if ai_pred == user_pred:
+        if ai_pred[0] == user_pred:
             st.session_state.score += 1
             st.success("Great! You guessed it right!")
         else:
